@@ -13,6 +13,22 @@ extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
 
+def validate_saque(valor):
+    global saldo, limite, extrato, numero_saques, LIMITE_SAQUES
+
+    if valor > saldo:
+            print("Você não possui saldo suficiente para o valor solicitado.")
+    elif valor > limite: 
+        print("Valor do saque ultrapassa o valor limite diário.")
+    elif numero_saques >= LIMITE_SAQUES:
+        print("Você já utilizou o limite diário de saques.")
+    elif valor > 0:
+        saldo -= valor
+        extrato += f"Saque: R$ {valor:.2f}\n"
+        numero_saques += 1
+    else:
+        print("Operação falhou, valor inválido")
+
 while True: 
 
     opcao = input(menu)
@@ -31,18 +47,7 @@ while True:
 
         print("\n---------------------------------------------")
 
-        if valor > saldo:
-            print("Você não possui saldo suficiente para o valor solicitado.")
-        elif valor > limite: 
-            print("Valor do saque ultrapassa o valor limite diário.")
-        elif numero_saques >= LIMITE_SAQUES:
-            print("Você já utilizou o limite diário de saques.")
-        elif valor > 0:
-            saldo -= valor
-            extrato += f"Saque: R$ {valor:.2f}\n"
-            numero_saques += 1
-        else:
-            print("Operação falhou, valor inválido")
+        validate_saque(valor)
 
     elif opcao == "e":
         print("\n=================== EXTRATO =================")
